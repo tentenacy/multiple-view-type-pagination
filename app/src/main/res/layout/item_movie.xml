@@ -4,8 +4,8 @@
     <data>
 
         <variable
-            name="userRating"
-            type="String" />
+            name="movie"
+            type="com.tenutz.multipleviewtypepagination.data.datasource.paging.entity.Movies.Movie" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -34,6 +34,7 @@
             android:layout_marginStart="12dp"
             android:ellipsize="end"
             android:lines="1"
+            android:text="@{movie.title}"
             app:layout_constraintTop_toTopOf="@id/image_imovie"
             app:layout_constraintStart_toEndOf="@id/image_imovie"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -42,7 +43,7 @@
             android:id="@+id/text_imovie_rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text='@{"평점: "+userRating}'
+            android:text='@{"평점: "+movie.userRating}'
             app:layout_constraintStart_toStartOf="@id/text_imovie_title"
             app:layout_constraintBottom_toBottomOf="@id/image_imovie" />
 
