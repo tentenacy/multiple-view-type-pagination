@@ -1,0 +1,1 @@
+# multiple-view-type-pagination
