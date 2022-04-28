@@ -10,3 +10,5 @@
 ## 해결
 
 - PagingData의 insertHeaderItem을 사용하여 Data가 아닌 요소를 Header로 처리
+
+![KakaoTalk_20220428_154102236-min](https://user-images.githubusercontent.com/76826021/165692927-a20129a9-7474-46f4-99e2-8a87f4e604fc.gif)
