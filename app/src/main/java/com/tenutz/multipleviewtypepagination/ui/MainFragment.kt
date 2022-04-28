@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.paging.PagingData
+import androidx.paging.insertHeaderItem
+import androidx.paging.map
 import com.tenutz.multipleviewtypepagination.databinding.FragmentMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -17,8 +20,8 @@ class MainFragment: Fragment() {
 
     private val viewModel: MainFViewModel by viewModels()
 
-    private val adapter: MoviesAdapter by lazy {
-        MoviesAdapter {
+    private val adapter: MoviesPagingAdapter by lazy {
+        MoviesPagingAdapter(lifecycle) {
             viewModel.search(it)
         }
     }
@@ -38,8 +41,12 @@ class MainFragment: Fragment() {
 
         binding.recyclerMain.adapter = adapter
 
-        viewModel.movies.observe(viewLifecycleOwner) {
-            adapter.setMovies(it)
+        adapter.submitData(lifecycle, PagingData.empty<MovieItem>()
+            .insertHeaderItem(item = MovieItem.Header))
+
+        viewModel.movies.observe(viewLifecycleOwner) { pagingData ->
+            adapter.submitData(lifecycle, pagingData.map { MovieItem.Data(it) as MovieItem }
+                .insertHeaderItem(item = MovieItem.Header))
         }
     }
 

@@ -9,6 +9,9 @@ plugins {
     id 'kotlinx-serialization'
 }
 
+def Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
@@ -29,6 +32,9 @@ android {
                 arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
             }
         }
+
+        buildConfigField("String", "SOCIAL_NAVER_CLIENT_ID", properties.getProperty("social.naver.client-id"))
+        buildConfigField("String", "SOCIAL_NAVER_CLIENT_SECRET", properties.getProperty("social.naver.client-secret"))
     }
 
     kapt {
@@ -242,4 +248,10 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+}
+
+secrets {
+    // Change the properties file from the default "local.properties" in your root project
+    // to another properties file in your root project.
+    propertiesFileName 'local.properties'
 }

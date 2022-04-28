@@ -2,6 +2,7 @@ package com.tenutz.multipleviewtypepagination.data.datasource.paging.source
 
 import androidx.paging.PagingState
 import androidx.paging.rxjava3.RxPagingSource
+import com.tenutz.multipleviewtypepagination.BuildConfig
 import com.tenutz.multipleviewtypepagination.data.datasource.api.remote.MovieSearchApi
 import com.tenutz.multipleviewtypepagination.data.datasource.paging.entity.Movies
 import com.tenutz.multipleviewtypepagination.utils.applyRetryPolicy
@@ -27,13 +28,12 @@ class MovieRxPagingSource(
     override fun loadSingle(params: LoadParams<Int>): Single<LoadResult<Int, Movies.Movie>> {
         val position = params.key ?: 1
         return movieSearchApi.search(
-            clientId = "",
-            secretKey = "",
+            clientId = BuildConfig.SOCIAL_NAVER_CLIENT_ID,
+            secretKey = BuildConfig.SOCIAL_NAVER_CLIENT_SECRET,
             query = query,
             display = params.loadSize,
             start = params.loadSize * (position - 1) + 1,
         )
-            .delay(1000L, TimeUnit.MILLISECONDS)
             .subscribeOn(Schedulers.io())
             .map { response ->
                 mapper.transform(response)

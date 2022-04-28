@@ -5,13 +5,14 @@ import com.tenutz.multipleviewtypepagination.data.datasource.paging.entity.Movie
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.math.ceil
+import kotlin.math.floor
 
 @Singleton
 class MovieMapper @Inject constructor() {
 
     fun transform(response: MoviesResponse): Movies {
         return with(response) {
-            val calcTotal = ceil(total.div(response.display.toFloat())).toInt()
+            val calcTotal = floor(total.div(response.display.toFloat())).toInt()
             Movies(
                 total = calcTotal,
                 page = start,
